@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OCPP Live Monitor</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark">⚡</div>
+    <div><h1>OCPP Live Monitor</h1><p>Cloud WebSocket endpoint · OCPP 1.6J</p></div>
+    <div id="liveStatus" class="pill offline"><span></span> Dashboard offline</div>
+  </header>
+  <main>
+    <section class="hero panel">
+      <div>
+        <p class="eyebrow">YOUR CSMS ENDPOINT</p>
+        <h2>Connect a virtual charger</h2>
+        <p class="muted">Deploy this app to a public host, then copy the WSS URL into your charger simulator.</p>
+      </div>
+      <div class="endpoint-box">
+        <label for="endpoint">WebSocket URL template</label>
+        <div class="copyline"><code id="endpoint">Loading endpoint…</code><button id="copyEndpoint" class="secondary">Copy</button></div>
+        <small>Use a unique Charge Point ID at the end, for example <code>CP_01</code>.</small>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat panel"><span>Connected chargers</span><strong id="connectedCount">0</strong><small>Live WebSocket connections</small></div>
+      <div class="stat panel"><span>OCPP messages</span><strong id="messageCount">0</strong><small>Received since page opened</small></div>
+      <div class="stat panel"><span>Last activity</span><strong id="lastActivity">—</strong><small>Most recent event</small></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head"><div><h2>Charge points</h2><p class="muted">Connect your simulator using the endpoint above.</p></div><button id="refresh" class="secondary">Refresh</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Charge Point ID</th><th>Status</th><th>Connected since</th><th>Remote address</th></tr></thead><tbody id="chargers"><tr><td colspan="4" class="empty">Waiting for chargers…</td></tr></tbody></table></div>
+    </section>
+
+    <section class="panel log-panel">
+      <div class="section-head"><div><h2>Live OCPP message log</h2><p class="muted">Raw JSON frames received from connected chargers.</p></div><div class="actions"><select id="filter"><option value="all">All events</option><option value="ocpp">OCPP messages only</option><option value="system">Connection events</option></select><button id="clearLog" class="secondary">Clear view</button></div></div>
+      <div class="table-wrap"><table class="log-table"><thead><tr><th>Time</th><th>Direction</th><th>Charge point</th><th>Message</th><th>Frame</th></tr></thead><tbody id="logs"><tr><td colspan="5" class="empty">No OCPP messages yet. Connect a charger to begin.</td></tr></tbody></table></div>
+    </section>
+    <footer>Prototype CSMS receiver · OCPP 1.6J WebSocket JSON frames · Keep this endpoint private until access controls are configured.</footer>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
